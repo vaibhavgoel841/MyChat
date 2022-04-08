@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignupActivity"
+    android:orientation="vertical">
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="30sp"
+    android:textColor="@color/purple_700"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:text="Profile Info"
+    android:layout_marginTop="30dp"
+    android:textStyle="bold"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:text="Please provide your image and name"
+       android:layout_margin="12dp"
+        android:layout_gravity="center_horizontal"/>
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profileImg"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:clickable="true"
+       android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:adjustViewBounds="true"
+        android:focusable="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/download"
+        app:shapeAppearanceOverlay="@style/RoundedImageView"/>
+    <EditText
+        android:id="@+id/et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:hint="Enter Your name Here"
+        android:layout_gravity="center_horizontal"/>
+    <Button
+        android:id="@+id/nextBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="NEXT"
+        android:enabled="false"/>
+
+</LinearLayout>

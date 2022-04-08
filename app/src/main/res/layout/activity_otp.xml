@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OtpActivity"
+    android:orientation="vertical">
+<TextView
+    android:id="@+id/tv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:textSize="24sp"
+    android:text="Verify 9999999999"
+    android:gravity="center_horizontal"
+ android:layout_margin="20dp"
+    android:textColor="#1009F7"/>
+
+    <TextView
+        android:id="@+id/verifytv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="Waiting to automatically detect an sms send to 9999999999. Wrong Number?"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:layout_margin="20dp"/>
+    <TextView
+        android:id="@+id/ctv"
+                android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:textSize="16dp"
+        android:layout_margin="20dp"
+        android:text="Time Remaining:"/>
+<EditText
+    android:id="@+id/verifyEt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:hint="_ _ _ _ _ _"
+    android:textSize="24sp"
+    android:maxLength="6"
+    android:maxLines="1"/>
+    <Button
+        android:id="@+id/verrify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:text="Verify and Continue"/>
+    <Button
+        android:id="@+id/resend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:text="Resend Sms"/>
+</LinearLayout>

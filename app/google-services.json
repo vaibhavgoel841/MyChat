@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "969133245786",
+    "firebase_url": "https://whatsapp-clone-82d5a-default-rtdb.firebaseio.com",
+    "project_id": "whatsapp-clone-82d5a",
+    "storage_bucket": "whatsapp-clone-82d5a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969133245786:android:4970d7b38baef867fadf63",
+        "android_client_info": {
+          "package_name": "com.example.unmechat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "969133245786-pja0gfouhub38r0igs7c9nmt8m0i14ra.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.unmechat",
+            "certificate_hash": "84b0f04eb261556d1434e20da7d111c9ee887876"
+          }
+        },
+        {
+          "client_id": "969133245786-evcj6f26138m2sk0avb0qlf9b0n1qmpp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQxSsaorItj0HuE6vem4oZxxbTSGNXCNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "969133245786-evcj6f26138m2sk0avb0qlf9b0n1qmpp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
