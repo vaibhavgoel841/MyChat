@@ -57,7 +57,7 @@ class OtpActivity : AppCompatActivity() {
 
 verrify.setOnClickListener{
     var code=verifyEt.text.toString()
-    Toast.makeText(this,"verify",Toast.LENGTH_LONG).show()
+//    Toast.makeText(this,"verify",Toast.LENGTH_LONG).show()
     if(code.isNotEmpty()&&!mVerificationId.isNullOrBlank()) {
         val credential = PhoneAuthProvider.getCredential(mVerificationId!!, code)
         signWithCredential(credential)
@@ -66,6 +66,7 @@ verrify.setOnClickListener{
 }
         resend.setOnClickListener{
             if(mResendToken!=null){
+                showTimer()
 PhoneAuthProvider.getInstance().verifyPhoneNumber(s!!,60,TimeUnit.SECONDS,this,callbacks,mResendToken)
             }
         }
@@ -94,7 +95,7 @@ PhoneAuthProvider.getInstance().verifyPhoneNumber(s!!,60,TimeUnit.SECONDS,this,c
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                Log.d("onAuto","getCode")
+//                Log.d("onAuto","getCode")/
                val smsCode=credential.smsCode
                 if(!smsCode.isNullOrBlank())
                     verifyEt.setText(smsCode)
@@ -109,10 +110,10 @@ PhoneAuthProvider.getInstance().verifyPhoneNumber(s!!,60,TimeUnit.SECONDS,this,c
                 if (e is FirebaseAuthInvalidCredentialsException) {
                     Toast.makeText(this@OtpActivity,"Something Went Wrong Try again",Toast.LENGTH_LONG).show();
                 } else if (e is FirebaseTooManyRequestsException) {
-                    // The SMS quota for the project has been exceeded
+                    Toast.makeText(this@OtpActivity,"Too many requests",Toast.LENGTH_LONG).show()
                 }
 Log.e("What",e.localizedMessage)
-              Toast.makeText(this@OtpActivity,"Something Went Wrong Please try again",Toast.LENGTH_LONG).show()
+              
             }
 
             override fun onCodeSent(
@@ -140,7 +141,7 @@ var auth=PhoneAuthProvider.getInstance()
         mauth.signInWithCredential(credential)
             .addOnCompleteListener{
                 if(it.isSuccessful){
-var intent=Intent(this,SignupActivity::class.java)
+var intent=Intent(this,SignupActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK )
                     intent.putExtra("phoneNumber",s)
                     startActivity(intent)
                     finish()

@@ -27,15 +27,11 @@ class InboxFragment : Fragment() {
     private val auth by lazy {
         FirebaseAuth.getInstance()
     }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        viewManager = LinearLayoutManager(requireContext())
-        setupAdapter()
-        return inflater.inflate(R.layout.fragment_inbox, container, false)
     }
+
 
     private fun setupAdapter() {
 
@@ -60,11 +56,14 @@ class InboxFragment : Fragment() {
             ) {
 
                 viewHolder.bind(inbox) { name: String, photo: String, id: String ->
-                    val intent = Intent(requireContext(), ChatActivity::class.java)
-                    intent.putExtra("UID", id)
-                    intent.putExtra("NAME", name)
-                    intent.putExtra("IMAGE", photo)
-                    startActivity(intent)
+                    startActivity(
+                        ChatActivity.createChatActivity(
+                            requireContext(),
+                            id,
+                            name,
+                            photo
+                        )
+                    )
                 }
             }
         }
@@ -80,13 +79,18 @@ class InboxFragment : Fragment() {
         mAdapter.stopListening()
     }
 
-
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        viewManager = LinearLayoutManager(requireContext())
+        setupAdapter()
+        return inflater.inflate(R.layout.fragment_inbox, container, false)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView.apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
+
             layoutManager = viewManager
             adapter = mAdapter
         }

@@ -77,7 +77,7 @@ return list.size
         private const val UNSUPPORTED=-1
         private const val TEXT_MESSAGE_RECEIVED=0
         private const val TEXT_MESSAGE_SEND=1
-        private const val DATE_HEADER=1
+        private const val DATE_HEADER=2
     }
 
 }

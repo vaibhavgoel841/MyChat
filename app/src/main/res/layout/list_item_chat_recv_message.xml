@@ -14,7 +14,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/messageCardView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:cardBackgroundColor="#f3f3f3"
         app:elevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,7 +34,7 @@
                 android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:lineSpacingExtra="5dp"
+                android:lineSpacingExtra="2dp"
                 android:textColor="#1c1d2a"
                 android:textSize="14sp"
                 tools:text="Hello" />

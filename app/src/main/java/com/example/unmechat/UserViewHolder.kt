@@ -15,7 +15,7 @@ class UserViewHolder(itemView:View):RecyclerView.ViewHolder(itemView) {
         itemView.timeTv.isVisible=false;
         itemView.titleTv.text=user.name
 
-        itemView.subtitleTv.text=user.status
+        itemView.subTitleTv.text=user.status
         Glide.with(itemView.context)
             .load(user.imageUrl)
             .into(itemView.userImgView);

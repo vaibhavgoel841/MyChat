@@ -21,11 +21,11 @@ const val USER_NAME = "userName"
 class ChatActivity : AppCompatActivity() {
 
     private val  friendId:String by lazy {
-     intent.getStringExtra("UID")!!
+     intent.getStringExtra(USER_ID)!!
  }
-    private val name :String by lazy { intent.getStringExtra("NAME")!! }
+    private val name :String by lazy { intent.getStringExtra(USER_NAME)!! }
     private val image:String by lazy {
-        intent.getStringExtra("IMAGE")!!
+        intent.getStringExtra(USER_THUMB_IMAGE)!!
     }
 
     private val mcurrentUser :String by lazy{
@@ -70,9 +70,13 @@ sendBtn.setOnClickListener{
 
     }
 }
+        updateReadCount()
 
     }
-private fun listenToMessages(){
+    private fun updateReadCount() {
+        getInbox(mcurrentUser, friendId).child("count").setValue(0)
+    }
+        private fun listenToMessages(){
     getMessages(friendId).orderByKey().addChildEventListener(object:ChildEventListener{
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
             val msg:Message?=snapshot.getValue(Message::class.java)
@@ -109,7 +113,7 @@ val eventBefore=messages.lastOrNull()
             }
 
                 messages.add(msg);
-            chatAdapter.notifyItemChanged(messages.size-1)
+            chatAdapter.notifyItemChanged(messages.size)
             msgRv.scrollToPosition(messages.size-1)
         }
     }
@@ -121,36 +125,42 @@ val id=getMessages(friendId).push().key
         getMessages(friendId).child(id).setValue(msgMap).addOnSuccessListener {
 
         }
-updateLastMessage(msgMap)
+updateLastMessage(msgMap,mcurrentUser.toString())
 
     }
-private fun updateLastMessage(message: Message){
-    val inboxMap=Inbox(
-        message.msg,friendId,name,image,count=0)
+    private fun updateLastMessage(message: Message, mCurrentUid: String) {
+        val inboxMap = Inbox(
+            message.msg,
+            friendId,
+            name,
+            image,
+            message.sentAt,
+            0
+        )
 
-    getInbox(mcurrentUser,friendId).setValue(inboxMap)
-    getInbox(friendId,mcurrentUser).addListenerForSingleValueEvent(object:ValueEventListener{
-        override fun onDataChange(snapshot: DataSnapshot) {
-            val value=snapshot.getValue(Inbox::class.java)
-            inboxMap.apply {
-                from=message.msgId;
-                name=currentUser.name
-                image=currentUser.thumbImage
-                count=1;
+        getInbox(mCurrentUid, friendId).setValue(inboxMap)
+
+        getInbox(friendId, mCurrentUid).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {}
+
+            override fun onDataChange(p0: DataSnapshot) {
+                val value = p0.getValue(Inbox::class.java)
+                inboxMap.apply {
+                    from = mcurrentUser
+                    name = currentUser.name
+                    image = currentUser.thumbImage
+                    count = 1
+                }
+                if (value?.from == message.senderId) {
+                    inboxMap.count = value.count + 1
+                }
+                getInbox(friendId, mCurrentUid).setValue(inboxMap)
             }
-           value?.let {
-               if(it.from==message.senderId)
-inboxMap.count=value.count+1;
-           }
-        }
 
-        override fun onCancelled(error: DatabaseError) {
+        })
+    }
 
-        }
-
-    })
-    getInbox(friendId,mcurrentUser).setValue(inboxMap)
-}
     private fun marksasRead(){
         getInbox(friendId,mcurrentUser).child("count").setValue(0)
     }
@@ -163,7 +173,22 @@ inboxMap.count=value.count+1;
         else
             mcurrentUser+friendId
     }
+   companion object {
 
+            fun createChatActivity(
+                context: Context,
+                id: String,
+                name: String,
+                image: String
+            ): Intent {
+                val intent = Intent(context, ChatActivity::class.java)
+                intent.putExtra(USER_ID, id)
+                intent.putExtra(USER_NAME, name)
+                intent.putExtra(USER_THUMB_IMAGE, image)
+
+                return intent
+            }
+        }
 }
 
 

@@ -24,6 +24,7 @@ import com.hbb20.CountryCodePicker
         setContentView(R.layout.activity_login)
 button.isEnabled=false
 edittext.addTextChangedListener {
+
     if (edittext.length() >= 10)
         button.isEnabled = true
     if (edittext.length() < 10)

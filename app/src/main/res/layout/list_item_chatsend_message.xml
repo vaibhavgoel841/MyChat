@@ -29,7 +29,7 @@
             android:padding="8dp"
             app:alignItems="flex_end"
             app:flexWrap="wrap"
-            app:justifyContent="flex_end">
+            app:justifyContent="flex_start">
 
             <TextView
                 android:id="@+id/content"

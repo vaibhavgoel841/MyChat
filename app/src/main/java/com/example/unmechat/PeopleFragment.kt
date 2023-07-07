@@ -29,11 +29,7 @@ lateinit var mAdapter: FirestorePagingAdapter<User,UserViewHolder>
 
     }
     private fun setupAdapter(){
-val config= PagedList.Config.Builder()
-    .setPageSize(10)
-    .setPrefetchDistance(2)
-    .setEnablePlaceholders(false)
-    .build()
+
         val options=FirestorePagingOptions.Builder<User>()
             .setLifecycleOwner(viewLifecycleOwner)
             .setQuery(database, PagingConfig(10,2,false) ,User::class.java)
@@ -46,16 +42,19 @@ val view:View=LayoutInflater.from(parent.context).inflate(R.layout.list_item,par
 
             override fun onBindViewHolder(holder: UserViewHolder, position: Int, model: User) {
 
-                holder.bind(model){ name: String, image: String, id: String ->
+                holder.bind(model){ name: String, photo: String, id: String ->
                     if(auth.uid!=id) {
-                        val intent = Intent(requireContext(), ChatActivity::class.java)
-                        intent.putExtra("UID", id)
-                        intent.putExtra("NAME", name)
-                        intent.putExtra("IMAGE", image)
-                        startActivity(intent)
+                        startActivity(
+                            ChatActivity.createChatActivity(
+                                requireContext(),
+                                id,
+                                name,
+                                photo
+                            )
+                        )
                     }
                     else
-                        Toast.makeText(requireContext(),"you cannot send message to yourself",Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(),"You cannot send message to yourself",Toast.LENGTH_LONG).show()
                 }
             }
 
